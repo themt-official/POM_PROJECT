@@ -42,14 +42,18 @@ export default function FeatureDesign() {
 
       const steps = copyEls.length;
 
+      // Driven by position: sticky in the markup below rather than GSAP's
+      // pin: true — a pin-spacer insertion that didn't fully revert on a
+      // dev-mode double-effect-invocation remount was causing a sibling
+      // pinned section elsewhere on the page to overlap the content after
+      // it. Sticky has no DOM mutation to get out of sync, so this
+      // ScrollTrigger only drives the timeline's scrub progress now.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
           end: "+=150%",
           scrub: true,
-          pin: true,
-          anticipatePin: 1,
         },
       });
 
@@ -83,9 +87,9 @@ export default function FeatureDesign() {
     <section
       ref={sectionRef}
       data-theme="light"
-      className="theme-light bg-section-bg text-section-fg relative min-h-screen overflow-hidden"
+      className="theme-light bg-section-bg text-section-fg relative h-[250vh]"
     >
-      <div className="mx-auto flex h-screen max-w-6xl flex-col items-center justify-center gap-12 px-6 md:flex-row md:gap-20">
+      <div className="sticky top-0 mx-auto flex h-screen max-w-6xl flex-col items-center justify-center gap-12 overflow-hidden px-6 md:flex-row md:gap-20">
         <div className="relative flex h-72 w-72 flex-shrink-0 items-center justify-center md:h-96 md:w-96">
           <div
             className="pointer-events-none absolute inset-0 rounded-full opacity-60 blur-3xl"

@@ -8,14 +8,16 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function FeatureCamera() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const progressRef = useRef(0);
 
   useEffect(() => {
     const section = sectionRef.current;
+    const sticky = stickyRef.current;
     const canvas = canvasRef.current;
-    if (!section || !canvas) return;
+    if (!section || !sticky || !canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -62,7 +64,7 @@ export default function FeatureCamera() {
     };
 
     const resize = () => {
-      const rect = section.getBoundingClientRect();
+      const rect = sticky.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
       canvas.width = Math.max(1, Math.floor(rect.width * dpr));
       canvas.height = Math.max(1, Math.floor(rect.height * dpr));
@@ -75,11 +77,16 @@ export default function FeatureCamera() {
     resize();
     window.addEventListener("resize", resize);
 
+    // Driven by position: sticky in the markup below rather than GSAP's
+    // pin: true — a pin-spacer insertion that didn't fully revert on a
+    // dev-mode double-effect-invocation remount was causing this section's
+    // fixed canvas to stay on screen past its reserved scroll distance,
+    // overlapping the section after it. Sticky has no DOM mutation to get
+    // out of sync, so this ScrollTrigger only tracks progress now.
     const trigger = ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "bottom top",
-      pin: true,
+      end: "bottom bottom",
       scrub: true,
       onUpdate: (self) => {
         progressRef.current = self.progress;
@@ -99,24 +106,29 @@ export default function FeatureCamera() {
     <section
       ref={sectionRef}
       data-theme="light"
-      className="theme-light bg-section-bg text-section-fg relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="theme-light bg-section-bg text-section-fg relative h-[200vh]"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       <div
-        className="pointer-events-none absolute inset-0 bg-black/10"
-        aria-hidden
-      />
-      <div className="relative z-10 flex flex-col items-center gap-3 px-6 text-center">
-        <p className="text-section-accent text-sm font-medium tracking-[0.2em] uppercase">
-          Camera &amp; Display
-        </p>
-        <p className="text-section-fg text-3xl font-semibold tracking-tight sm:text-5xl">
-          Every detail, redesigned.
-        </p>
-        <p className="text-section-muted max-w-md text-sm leading-relaxed sm:text-base">
-          Scroll to scrub through the sequence — the drawing updates frame by
-          frame with your position.
-        </p>
+        ref={stickyRef}
+        className="sticky top-0 flex h-screen items-center justify-center overflow-hidden"
+      >
+        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        <div
+          className="pointer-events-none absolute inset-0 bg-black/10"
+          aria-hidden
+        />
+        <div className="relative z-10 flex flex-col items-center gap-3 px-6 text-center">
+          <p className="text-section-accent text-sm font-medium tracking-[0.2em] uppercase">
+            Camera &amp; Display
+          </p>
+          <p className="text-section-fg text-3xl font-semibold tracking-tight sm:text-5xl">
+            Every detail, redesigned.
+          </p>
+          <p className="text-section-muted max-w-md text-sm leading-relaxed sm:text-base">
+            Scroll to scrub through the sequence — the drawing updates frame
+            by frame with your position.
+          </p>
+        </div>
       </div>
     </section>
   );
