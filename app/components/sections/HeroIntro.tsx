@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroIntro() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadRef = useRef<HTMLParagraphElement>(null);
   const scrollCueRef = useRef<HTMLDivElement>(null);
@@ -20,10 +21,17 @@ export default function HeroIntro() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       tl.fromTo(
-        headlineRef.current,
-        { opacity: 0, y: 24, scale: 0.96 },
-        { opacity: 1, y: 0, scale: 1, duration: 1 }
-      ).fromTo(
+        eyebrowRef.current,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.6 }
+      )
+        .fromTo(
+          headlineRef.current,
+          { opacity: 0, y: 24, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 1 },
+          "-=0.35"
+        )
+        .fromTo(
         subheadRef.current,
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.8 },
@@ -65,15 +73,29 @@ export default function HeroIntro() {
   return (
     <div ref={heroRef}>
       <section className="theme-dark bg-section-bg text-section-fg relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 50% 35%, color-mix(in srgb, var(--color-section-accent) 18%, transparent), transparent 70%)",
+          }}
+          aria-hidden
+        />
+        <p
+          ref={eyebrowRef}
+          className="text-section-accent relative text-sm font-medium tracking-[0.2em] uppercase"
+        >
+          Aura
+        </p>
         <h1
           ref={headlineRef}
-          className="text-5xl font-semibold tracking-tight sm:text-7xl md:text-8xl"
+          className="relative mt-4 text-5xl font-semibold tracking-tight sm:text-7xl md:text-8xl"
         >
           Introducing Nothing New.
         </h1>
         <p
           ref={subheadRef}
-          className="text-section-muted mt-6 max-w-xl text-lg sm:text-xl"
+          className="text-section-muted relative mt-6 max-w-xl text-lg leading-relaxed sm:text-xl"
         >
           A portfolio demo of scroll-driven storytelling, built the way the
           best product pages are.
@@ -113,7 +135,7 @@ export default function HeroIntro() {
       >
         <h2
           ref={introTextRef}
-          className="whitespace-nowrap text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl"
+          className="text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl md:whitespace-nowrap"
         >
           Thinner. Faster. Still here.
         </h2>

@@ -25,7 +25,19 @@ export default function SmoothScrollProvider({
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
 
+    // Section components create their ScrollTriggers (including pins) in
+    // their own effects, which run before this one. Re-measure here, once
+    // the whole tree (and Lenis) is in place, so pin start/end offsets are
+    // based on final layout rather than whatever was mounted first —
+    // otherwise pinned sections can under/overshoot their spacer height and
+    // visually overlap the section that follows them.
+    const refresh = () => ScrollTrigger.refresh();
+    const raf = requestAnimationFrame(refresh);
+    window.addEventListener("load", refresh);
+
     return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("load", refresh);
       lenis.destroy();
       gsap.ticker.remove(update);
     };

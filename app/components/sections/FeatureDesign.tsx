@@ -85,7 +85,15 @@ export default function FeatureDesign() {
       className="theme-light bg-section-bg text-section-fg relative min-h-screen overflow-hidden"
     >
       <div className="mx-auto flex h-screen max-w-6xl flex-col items-center justify-center gap-12 px-6 md:flex-row md:gap-20">
-        <div className="flex h-72 w-72 flex-shrink-0 items-center justify-center md:h-96 md:w-96">
+        <div className="relative flex h-72 w-72 flex-shrink-0 items-center justify-center md:h-96 md:w-96">
+          <div
+            className="pointer-events-none absolute inset-0 rounded-full opacity-60 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in srgb, var(--color-section-accent) 35%, transparent), transparent 70%)",
+            }}
+            aria-hidden
+          />
           <div
             ref={shapeRef}
             className="relative flex h-full w-full items-center justify-center"
@@ -128,6 +136,9 @@ export default function FeatureDesign() {
         </div>
 
         <div className="relative w-full max-w-md md:w-96">
+          <p className="text-section-accent absolute -top-10 text-sm font-medium tracking-[0.2em] uppercase">
+            Design
+          </p>
           {COPY_BLOCKS.map((block, i) => (
             <div
               key={block.title}

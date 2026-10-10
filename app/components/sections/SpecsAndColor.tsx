@@ -73,14 +73,19 @@ export default function SpecsAndColor() {
     >
       {/* Specs table — calm, static rest beat */}
       <div data-fade-in className="w-full max-w-4xl">
-        <h2 className="mb-2 text-center text-3xl font-semibold">Compare the lineup</h2>
+        <p className="text-section-accent mb-3 text-center text-sm font-medium tracking-[0.2em] uppercase">
+          Specs
+        </p>
+        <h2 className="mb-2 text-center text-3xl font-semibold tracking-tight">
+          Compare the lineup
+        </h2>
         <p className="text-section-muted mb-8 text-center text-sm">
           A quiet moment to look at the numbers before you choose.
         </p>
         <div className="overflow-x-auto rounded-2xl border border-white/10">
           <table className="w-full min-w-[480px] border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-white/10">
+              <tr className="border-b border-white/10 bg-white/[0.03]">
                 <th className="text-section-muted px-5 py-4 font-medium">Spec</th>
                 <th className="px-5 py-4 font-medium">Base</th>
                 <th className="px-5 py-4 font-medium">Pro</th>
@@ -91,7 +96,9 @@ export default function SpecsAndColor() {
               {SPECS.map((row, i) => (
                 <tr
                   key={row.label}
-                  className={i !== SPECS.length - 1 ? "border-b border-white/5" : ""}
+                  className={`transition-colors hover:bg-white/[0.04] ${
+                    i !== SPECS.length - 1 ? "border-b border-white/5" : ""
+                  }`}
                 >
                   <td className="text-section-muted px-5 py-4">{row.label}</td>
                   <td className="px-5 py-4">{row.base}</td>
@@ -106,13 +113,16 @@ export default function SpecsAndColor() {
 
       {/* Color / configuration picker */}
       <div data-fade-in className="flex w-full max-w-4xl flex-col items-center gap-8">
+        <p className="text-section-accent text-sm font-medium tracking-[0.2em] uppercase">
+          Finish
+        </p>
         <div className="flex flex-col items-center gap-4">
           <div
-            className="h-28 w-28 rounded-full ring-4 ring-white/20 ring-offset-4 ring-offset-section-bg transition-colors duration-300"
+            className="h-28 w-28 rounded-full shadow-lg ring-4 ring-white/20 ring-offset-4 ring-offset-section-bg transition-colors duration-300"
             style={{ backgroundColor: selectedColor.swatch }}
             aria-hidden
           />
-          <p className="text-section-accent text-lg font-medium">{selectedColor.name}</p>
+          <p className="text-section-fg text-lg font-medium">{selectedColor.name}</p>
         </div>
 
         <div className="flex items-center gap-5">
@@ -125,7 +135,7 @@ export default function SpecsAndColor() {
                 onClick={() => setSelectedColor(color)}
                 aria-label={`Select ${color.name}`}
                 aria-pressed={isSelected}
-                className={`h-10 w-10 cursor-pointer rounded-full transition-transform duration-200 ${
+                className={`h-10 w-10 cursor-pointer rounded-full shadow-md transition-transform duration-200 ${
                   isSelected
                     ? "ring-2 ring-section-accent ring-offset-2 ring-offset-section-bg scale-110"
                     : "ring-1 ring-white/20 hover:scale-105"

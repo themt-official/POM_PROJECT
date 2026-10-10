@@ -101,15 +101,20 @@ export default function FeatureCamera() {
       className="theme-light bg-section-bg text-section-fg relative flex min-h-screen items-center justify-center overflow-hidden"
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-      <div className="relative z-10 flex flex-col items-center gap-2 px-6 text-center">
-        <p className="text-section-accent text-sm font-medium tracking-wide uppercase">
+      <div
+        className="pointer-events-none absolute inset-0 bg-black/10"
+        aria-hidden
+      />
+      <div className="relative z-10 flex flex-col items-center gap-3 px-6 text-center">
+        <p className="text-section-accent text-sm font-medium tracking-[0.2em] uppercase">
           Camera &amp; Display
         </p>
-        <p className="text-section-fg text-3xl font-semibold sm:text-5xl">
+        <p className="text-section-fg text-3xl font-semibold tracking-tight sm:text-5xl">
           Every detail, redesigned.
         </p>
-        <p className="text-section-muted max-w-md text-sm sm:text-base">
-          Scroll to scrub through the sequence — the drawing updates frame by frame with your position.
+        <p className="text-section-muted max-w-md text-sm leading-relaxed sm:text-base">
+          Scroll to scrub through the sequence — the drawing updates frame by
+          frame with your position.
         </p>
       </div>
     </section>
