@@ -141,9 +141,6 @@ export default function FeatureDesign() {
         </div>
 
         <div className="relative w-full max-w-md md:w-96">
-          <p className="text-section-accent absolute -top-10 text-sm font-medium tracking-[0.2em] uppercase">
-            Design
-          </p>
           {COPY_BLOCKS.map((block, i) => (
             <div
               key={block.title}
@@ -152,6 +149,9 @@ export default function FeatureDesign() {
               }}
               className="absolute inset-0 flex flex-col justify-center gap-3"
             >
+              <p className="text-section-accent text-sm font-medium tracking-[0.2em] uppercase">
+                Design
+              </p>
               <h3 className="text-section-fg text-3xl font-semibold tracking-tight md:text-4xl">
                 {block.title}
               </h3>
