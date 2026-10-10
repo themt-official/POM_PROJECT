@@ -98,6 +98,7 @@ export default function FeatureCamera() {
   return (
     <section
       ref={sectionRef}
+      data-theme="light"
       className="theme-light bg-section-bg text-section-fg relative flex min-h-screen items-center justify-center overflow-hidden"
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />

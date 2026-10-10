@@ -63,6 +63,7 @@ export default function FeaturePerformance() {
   return (
     <section
       ref={sectionRef}
+      data-theme="dark"
       className="theme-dark bg-section-bg text-section-fg flex min-h-screen items-center justify-center"
     >
       <div className="flex w-full max-w-5xl flex-col items-center gap-16 px-6">

@@ -72,7 +72,10 @@ export default function HeroIntro() {
 
   return (
     <div ref={heroRef}>
-      <section className="theme-dark bg-section-bg text-section-fg relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+      <section
+        data-theme="dark"
+        className="theme-dark bg-section-bg text-section-fg relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
+      >
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -131,6 +134,7 @@ export default function HeroIntro() {
 
       <section
         ref={introRef}
+        data-theme="light"
         className="theme-light bg-section-bg text-section-fg flex min-h-screen items-center justify-center px-6 text-center"
       >
         <h2

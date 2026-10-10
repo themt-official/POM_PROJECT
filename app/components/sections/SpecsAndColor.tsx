@@ -69,6 +69,7 @@ export default function SpecsAndColor() {
   return (
     <section
       ref={sectionRef}
+      data-theme="dark"
       className="theme-dark bg-section-bg text-section-fg flex min-h-screen flex-col items-center justify-center gap-16 px-6 py-24"
     >
       {/* Specs table — calm, static rest beat */}

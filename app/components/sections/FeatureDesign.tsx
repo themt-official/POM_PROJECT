@@ -82,6 +82,7 @@ export default function FeatureDesign() {
   return (
     <section
       ref={sectionRef}
+      data-theme="light"
       className="theme-light bg-section-bg text-section-fg relative min-h-screen overflow-hidden"
     >
       <div className="mx-auto flex h-screen max-w-6xl flex-col items-center justify-center gap-12 px-6 md:flex-row md:gap-20">

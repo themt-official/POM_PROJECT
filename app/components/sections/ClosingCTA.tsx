@@ -38,6 +38,7 @@ export default function ClosingCTA() {
   return (
     <section
       ref={sectionRef}
+      data-theme="light"
       className="theme-light bg-section-bg text-section-fg flex min-h-screen items-center justify-center"
     >
       <div
