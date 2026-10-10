@@ -3,11 +3,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* section theme tokens — each feature section can override these
+     to drive the light/dark "theme shift" transitions between sections */
+  --section-bg: #ffffff;
+  --section-fg: #171717;
+  --section-muted: #6b7280;
+  --section-accent: #0071e3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-section-bg: var(--section-bg);
+  --color-section-fg: var(--section-fg);
+  --color-section-muted: var(--section-muted);
+  --color-section-accent: var(--section-accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -19,8 +30,29 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* dark section theme — applied by sections that want a black Apple-style band */
+.theme-dark {
+  --section-bg: #000000;
+  --section-fg: #f5f5f7;
+  --section-muted: #86868b;
+  --section-accent: #2997ff;
+}
+
+/* light section theme — the default off-white Apple band */
+.theme-light {
+  --section-bg: #f5f5f7;
+  --section-fg: #1d1d1f;
+  --section-muted: #6e6e73;
+  --section-accent: #0071e3;
 }
